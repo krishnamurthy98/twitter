@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -31,5 +33,12 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Tweet> tweets = new HashSet<>();
+
+    public void addTweet(Tweet tweet){
+        this.tweets.add(tweet);
+        tweet.setUser(this);
     }
 }
