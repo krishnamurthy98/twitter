@@ -1,34 +1,22 @@
 package com.dbs.twitter.model;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table
+@Data
 public class Tweet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int tid;
     private String message;
+
     @ManyToOne
-    @JoinColumn(name = "t_id" , nullable = false)
+    @JoinColumn(name = "user_id" , nullable = false)
     private User user;
-
-    public int getTid() {
-        return tid;
-    }
-
-    public void setTid(int tid) {
-        this.tid = tid;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     @Override
     public String toString() {
@@ -52,13 +40,5 @@ public class Tweet {
     @Override
     public int hashCode() {
         return Objects.hash(tid, message, user);
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

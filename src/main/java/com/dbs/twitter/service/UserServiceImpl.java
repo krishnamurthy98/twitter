@@ -5,18 +5,22 @@ import com.dbs.twitter.model.User;
 import com.dbs.twitter.repository.TweetRepository;
 import com.dbs.twitter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
-    private TweetRepository tweetRepository;
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository){ this.userRepository=userRepository;}
+    public UserServiceImpl(UserRepository userRepository){
+        this.userRepository=userRepository;
+
+    }
 
     @Override
     @Transactional
@@ -42,21 +46,21 @@ public class UserServiceImpl implements UserService {
         this.userRepository.delete(this.userRepository.findById(id).get());
     }
 
-    @Override
-    public Tweet saveTweet(Tweet tweet) { return tweetRepository.save(tweet); }
-
-    @Override
-    public List<Tweet> listAllTweet() {
-        return tweetRepository.findAll();
-    }
-
-    @Override
-    public Tweet findTweetById(long id) {
-        return this.tweetRepository.findById(id).get();
-    }
-
-    @Override
-    public void deleteTweet(long id) {
-        this.tweetRepository.delete(this.tweetRepository.findById(id).get());
-    }
+//    @Override
+//    public Tweet saveTweet(Tweet tweet) { return tweetRepository.save(tweet); }
+//
+//    @Override
+//    public List<Tweet> listAllTweet() {
+//        return tweetRepository.findAll();
+//    }
+//
+//    @Override
+//    public Tweet findTweetById(long id) {
+//        return this.tweetRepository.findById(id).get();
+//    }
+//
+//    @Override
+//    public void deleteTweet(long id) {
+//        this.tweetRepository.delete(this.tweetRepository.findById(id).get());
+//    }
 }
