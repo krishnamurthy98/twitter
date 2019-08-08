@@ -1,21 +1,16 @@
 package com.dbs.twitter.model;
-import lombok.Data;
-import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
-@Data
+@Table
 public class Tweet {
     @Id
-    @GeneratedValue
-    @Getter
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int tid;
     private String message;
-    private List<String> mediaUrls;
+    @ManyToOne
+    @JoinColumn(name = "t_id" , nullable = false)
+    private User user;
 
 }
-
