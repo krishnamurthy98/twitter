@@ -5,6 +5,7 @@ import com.dbs.twitter.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface UserService {
@@ -13,8 +14,8 @@ public interface UserService {
     User findById(long id);
     void deleteUser(long id);
 
-//    Tweet saveTweet(Tweet tweet);
-//    List<Tweet> listAllTweet();
-//    Tweet findTweetById(long id);
-//    void deleteTweet(long id);
+    User saveTweet(long id, Tweet tweet);
+    List<Tweet> listAllTweet();
+    Tweet saveTweet(Tweet tweet);
+    void deleteTweet(long id);
 }

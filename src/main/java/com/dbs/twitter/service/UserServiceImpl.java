@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,9 +18,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository){
-        this.userRepository=userRepository;
+    private TweetRepository tweetRepository;
 
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, TweetRepository tweetRepository){
+        this.userRepository=userRepository;
+        this.tweetRepository=tweetRepository;
     }
 
     @Override
@@ -46,21 +51,26 @@ public class UserServiceImpl implements UserService {
         this.userRepository.delete(this.userRepository.findById(id).get());
     }
 
-//    @Override
-//    public Tweet saveTweet(Tweet tweet) { return tweetRepository.save(tweet); }
-//
-//    @Override
-//    public List<Tweet> listAllTweet() {
-//        return tweetRepository.findAll();
-//    }
-//
-//    @Override
-//    public Tweet findTweetById(long id) {
-//        return this.tweetRepository.findById(id).get();
-//    }
-//
-//    @Override
-//    public void deleteTweet(long id) {
-//        this.tweetRepository.delete(this.tweetRepository.findById(id).get());
-//    }
+    @Override
+    public User saveTweet(long id, Tweet tweet) {
+        User user = this.userRepository.findById(id).get();
+        user.addTweet(tweet);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public List<Tweet> listAllTweet() {
+        return tweetRepository.findAll();
+    }
+
+
+    @Override
+    public void deleteTweet(long id) {
+        this.tweetRepository.deleteById(id);
+    }
+
+    @Override
+    public Tweet saveTweet(Tweet tweet){
+        return this.tweetRepository.save(tweet);
+    }
 }
